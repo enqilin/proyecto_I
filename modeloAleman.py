@@ -1,12 +1,9 @@
 def aleman():    
     V = 200000
-    saldo_deudor=V
-    capital_amortizado=V/12
-
     interes = 0.05
     n = 12
-    interes[1]=i*V
- 
+    capital_amortizado=V/n
+    saldo_deudor=V
 
     for i in range(n):        
         cuota_interes=saldo_deudor*interes
