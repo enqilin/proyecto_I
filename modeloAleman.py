@@ -11,9 +11,3 @@ def aleman():
         cuota=cuota_interes + capital_amortizado
         print(cuota, capital_amortizado, cuota_interes)
         #print ("Cuota: {} Interes: {} Capital amortizado: {}\n".format{Cuota, cuota_interes, capital_amortizado})
-
-
-
-
-
-
