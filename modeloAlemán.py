@@ -3,44 +3,40 @@ class Modelo_Aleman():
         self.V=V
         self.interes=interes
         self.n=n
+        self.capital_amortizado=self.V/self.n
+
+
+    def intereses(self):
+        lista_intereses=[]
+        lista_saldoDeudor=[]
+
+        for i in range (self.n):
+            if i==1:
+                cuota_interes=self.V*self.interes
+
+                lista_intereses.append(cuota_interes)
+                lista_saldoDeudor.append(self.V)
+            else:
+                saldo_deudor-=self.capital_amortizado
+                cuota_interes=saldo_deudor*self.interes
+
+                lista_intereses.append(cuota_interes)
+                lista_saldoDeudor.append(saldo_deudor)
+
+        return lista_saldoDeudor, lista_intereses
     
-    def capital_amortizado(self):
-        capital_amortizado=self.V/self.n
-        return capital_amortizado
-
-    def saldo_deudor(self):
-        capital_amortizado=capital_amortizado()
-        saldo_deudor-=capital_amortizado
-        return saldo_deudor
-
-    def cuota_interes(self):
-        x=saldo_deudor()
-        interes=x*self.interes
-
-
-def aleman():
-    lista_cuota_interes=[]    
-    lista_saldo_deudor=[]
-    lista_cuota=[]
-
-    capital_amortizado=V/n
-    saldo_deudor=V
-    i=0
-    while i<=12:      
-        cuota_interes=saldo_deudor*interes
-        lista_cuota_interes.append(cuota_interes)
-
-        saldo_deudor=saldo_deudor-capital_amortizado
-        lista_saldo_deudor.append(saldo_deudor)
-
-        cuota=cuota_interes + capital_amortizado
-        lista_cuota.append(cuota)
-        print ("Cuota: {} Interes: {} Capital amortizado: {}\n".format(cuota, cuota_interes, capital_amortizado))
+    def cuota(self, lista2):
+        lista_cuota=[]
+        for i in range(self.n):
+            cuota=self.capital_amortizado+lista2[i]
+            lista_cuota.append(cuota)
+        return lista_cuota
     
-        i+=1
-        
-
-aleman()
+    def main(self):
+        lista1, lista2=interes()        #lista1=lista_saldoDeudor #lista2=lista_intereses
+        lista3=cuota(lista2)            #lista3=lista_cuota
+        for i in range(self.n):
+            print ("Saldo Deudor: {} Interes: {} Capital amortizado: {} Cuota: {}\n".format(lista1[i], lista2[i], self.capital_amortizado, lista3[i]))
 
 
 
