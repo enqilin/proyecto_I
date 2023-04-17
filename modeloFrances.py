@@ -48,4 +48,4 @@ for fila in tabla_amortizacion:
     print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['interes'], fila['amortizacion'], fila['saldo_deuda']))
 
 cuota_sum = sum([x['cuota'] for x in tabla_amortizacion])
-print("\nTotal a pagar: {:,.2f}".format(cuota_sum))
+print("\nTotal a pagar: {:,.2f}".format(cuota_sum), "€")
