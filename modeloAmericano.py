@@ -1,44 +1,38 @@
-class AmortizacionAlemana:
-    def __init__(self, monto, tasa, plazo):
-        self.monto = monto
-        self.tasa = tasa
-        self.plazo = plazo
 
-    def calcula_cuota(self):
-        tasa_mensual = self.tasa / 12
-        plazo_meses = self.plazo * 12
-        cuota = (self.monto * tasa_mensual) / (1 - (1 + tasa_mensual) ** -plazo_meses)
-        return cuota
+class americano:
+    def __init__(self,prestamo,tasa,plazo):
+        self.prestamo = prestamo
+        self.plazo = plazo
+        self.tasa = tasa
 
     def calcula_amortizacion(self):
-        cuota = self.calcula_cuota()
-        saldo_pendiente = self.monto
-        intereses_total = 0
-        tabla_amortizacion = []
-
-        for mes in range(1, self.plazo * 12 + 1):
-            intereses_mes = saldo_pendiente * self.tasa / 12
-            capital_mes = cuota - intereses_mes
-            saldo_pendiente -= capital_mes
-            intereses_total += intereses_mes
-
+        amor_pendiente = self.prestamo
+        cuota = 0
+        interes_total = 0
+        tabla_amortizacion =[]
+        for mes in range(1 , self.plazo * 12 + 1):
+            interes_total = self.tasa / 12
+            interes_mensual = (self.tasa /12)*self.prestamo
+            amor_pendiente = self.prestamo
+            if mes == self.plazo*12:
+                capital_mensual = self.tasa / 12 +self.prestamo
+                amor_pendiente-= capital_mensual
+                cuota = (self.tasa/ 12) *self.prestamo + self.prestamo
+            else:
+                capital_mensual = self.tasa / 12
+                cuota = (self.tasa/ 12) *self.prestamo
+            interes_total+= self.tasa /12
             tabla_amortizacion.append({
                 "mes": mes,
-                "saldo_pendiente": saldo_pendiente,
-                "capital_mes": capital_mes,
-                "intereses_mes": intereses_mes,
-                "cuota": cuota
-            })
-
+                "saldo_pendiente": amor_pendiente,
+                "capital_mes": capital_mensual,
+                "intereses_mes":interes_mensual,
+                "cuota" :cuota})
         return tabla_amortizacion
-
-    def imprime_amortizacion(self):
+    def imprimir_tabla_amortizacion(self):
         tabla_amortizacion = self.calcula_amortizacion()
-
         print("{:^10s}{:^20s}{:^20s}{:^20s}{:^20s}".format("Mes", "Saldo Pendiente", "Capital Mes", "Intereses Mes", "Cuota"))
-
         for registro in tabla_amortizacion:
             print("{:^10d}{:^20.2f}{:^20.2f}{:^20.2f}{:^20.2f}".format(registro["mes"], registro["saldo_pendiente"], registro["capital_mes"], registro["intereses_mes"], registro["cuota"]))
-
-amortizacion = AmortizacionAlemana(100000, 0.05, 10)
-amortizacion.imprime_amortizacion()
+amortizacion = americano(100000, 0.03, 5)
+amortizacion.imprimir_tabla_amortizacion()
