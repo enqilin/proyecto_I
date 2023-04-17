@@ -1,44 +1,51 @@
-class AmortizacionFrancesa:
-    def __init__(self, monto, tasa, plazo):
-        self.monto = monto
-        self.tasa = tasa
-        self.plazo = plazo
+class Modelo_Aleman():
+    def __init__(self, V, interes, n):
+        self.V=V
+        self.interes=interes
+        self.n=n
+    
+    def capital_amortizado(self):
+        capital_amortizado=self.V/self.n
+        return capital_amortizado
 
-    def calcula_cuota(self):
-        tasa_mensual = self.tasa / 12
-        plazo_meses = self.plazo * 12
-        cuota = (self.monto * tasa_mensual) / (1 - (1 + tasa_mensual) ** -plazo_meses)
-        return cuota
+    def saldo_deudor(self):
+        capital_amortizado=capital_amortizado()
+        saldo_deudor-=capital_amortizado
+        return saldo_deudor
 
-    def calcula_amortizacion(self):
-        cuota = self.calcula_cuota()
-        saldo_pendiente = self.monto
-        intereses_total = 0
-        tabla_amortizacion = []
+    def cuota_interes(self):
+        x=saldo_deudor()
+        interes=x*self.interes
 
-        for mes in range(1, self.plazo * 12 + 1):
-            intereses_mes = saldo_pendiente * self.tasa / 12
-            capital_mes = cuota - intereses_mes
-            saldo_pendiente -= capital_mes
-            intereses_total += intereses_mes
 
-            tabla_amortizacion.append({
-                "mes": mes,
-                "saldo_pendiente": saldo_pendiente,
-                "capital_mes": capital_mes,
-                "intereses_mes": intereses_mes,
-                "cuota": cuota
-            })
+def aleman():
+    lista_cuota_interes=[]    
+    lista_saldo_deudor=[]
+    lista_cuota=[]
 
-        return tabla_amortizacion
+    capital_amortizado=V/n
+    saldo_deudor=V
+    i=0
+    while i<=12:      
+        cuota_interes=saldo_deudor*interes
+        lista_cuota_interes.append(cuota_interes)
 
-    def imprime_amortizacion(self):
-        tabla_amortizacion = self.calcula_amortizacion()
+        saldo_deudor=saldo_deudor-capital_amortizado
+        lista_saldo_deudor.append(saldo_deudor)
 
-        print("{:^10s}{:^20s}{:^20s}{:^20s}{:^20s}".format("Mes", "Saldo Pendiente", "Capital Mes", "Intereses Mes", "Cuota"))
+        cuota=cuota_interes + capital_amortizado
+        lista_cuota.append(cuota)
+        print ("Cuota: {} Interes: {} Capital amortizado: {}\n".format(cuota, cuota_interes, capital_amortizado))
+    
+        i+=1
+        
 
-        for registro in tabla_amortizacion:
-            print("{:^10d}{:^20.2f}{:^20.2f}{:^20.2f}{:^20.2f}".format(registro["mes"], registro["saldo_pendiente"], registro["capital_mes"], registro["intereses_mes"], registro["cuota"]))
+aleman()
 
-amortizacion = AmortizacionFrancesa(100000, 0.05, 10)
-amortizacion.imprime_amortizacion()
+
+
+valor_prestamo = input("Indique el valor del préstamo\n")
+interes = input("Indique el tipo de interes\n")
+nºcuotas = input("Indique el número de cuotas\n")
+
+Modelo_Aleman(valor_prestamo, interes, nºcuotas)
