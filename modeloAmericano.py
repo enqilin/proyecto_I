@@ -1,4 +1,3 @@
-
 class americano:
     def __init__(self,prestamo,tasa,plazo):
         self.prestamo = prestamo
@@ -12,7 +11,7 @@ class americano:
         cuota_total = 0
         capital_total = 0
         tabla_amortizacion =[]
-        for mes in range(1 , self.plazo * 12 + 2):
+        for mes in range(1 , self.plazo * 12 + 1):
             interes_mensual = (self.tasa /12)*self.prestamo
             interes_total += interes_mensual
             amor_pendiente = self.prestamo
@@ -51,15 +50,15 @@ class americano:
                     "intereses_mes":interes_mensual,
                     "cuota" :cuota})
         return tabla_amortizacion
+    
+    
     def imprimir_tabla_amortizacion(self):
         tabla_amortizacion = self.calcula_amortizacion()
         print("{:^10s}{:^20s}{:^20s}{:^20s}{:^20s}".format("Mes", "Saldo Pendiente", "Capital Mes", "Intereses Mes", "Cuota"))
         for registro in tabla_amortizacion:
             print("{:^10d}{:^20.2f}{:^20.2f}{:^20.2f}{:^20.2f}".format(registro["mes"], registro["saldo_pendiente"], registro["capital_mes"], registro["intereses_mes"], registro["cuota"]))
-amortizacion = americano(100000, 0.03, 5)
-
-amortizacion.imprimir_tabla_amortizacion()
-
+            
+           
 
 
 
@@ -71,3 +70,5 @@ print("-"*75)
 
 for fila in tabla_amortizacion:
     print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['intereses_mes'], fila['capital_mes'], fila['saldo_pendiente']))
+cuota_sum = sum([x['cuota'] for x in tabla_amortizacion])
+print("\nSuma de cuotas: {:,.2f}".format(cuota_sum))
