@@ -1,38 +1,48 @@
-import pandas as pd
-
 class AmortizacionFrancesa:
-    def __init__(self, capital, tasa_interes, plazo):
-        self.capital = capital
+    def __init__(self, capital_inicial, tasa_interes, plazo_meses):
+        self.capital_inicial = capital_inicial
         self.tasa_interes = tasa_interes
-        self.plazo = plazo
+        self.plazo_meses = plazo_meses
     
     def calcular_cuota_mensual(self):
-        r = self.tasa_interes / 12
-        n = self.plazo * 12
-        cuota = (self.capital * r * ((1 + r) ** n)) / (((1 + r) ** n) - 1)
+        i = self.tasa_interes / 12
+        n = self.plazo_meses
+        cuota = self.capital_inicial / ((1 - (1/(1+i)**n)) / i)
         return cuota
     
     def generar_tabla_amortizacion(self):
         cuota_mensual = self.calcular_cuota_mensual()
-        saldo_pendiente = self.capital
-        interes_total = 0
-        capital_total = 0
-        filas = []
-        for mes in range(1, self.plazo * 12 + 1):
-            interes = saldo_pendiente * (self.tasa_interes / 12)
-            capital = cuota_mensual - interes
-            saldo_pendiente -= capital
-            interes_total += interes
-            capital_total += capital
-            fila = {'Mes': mes, 'Cuota': cuota_mensual, 'Intereses': interes, 'Capital': capital, 'Saldo pendiente': saldo_pendiente}
-            filas.append(fila)
+        saldo_deuda = self.capital_inicial
+        tabla_amortizacion = []
         
-        tabla = pd.DataFrame(filas)
-        tabla = tabla[['Mes', 'Cuota', 'Intereses', 'Capital', 'Saldo pendiente']]
-        tabla = tabla.round(2)
-        tabla = tabla.set_index('Mes')
-        return tabla
+        # Agregamos el mes 0 a la tabla de amortización con los valores iniciales
+        tabla_amortizacion.append({
+            "mes": 0,
+            "cuota": 0,
+            "interes": 0,
+            "amortizacion": 0,
+            "saldo_deuda": saldo_deuda
+        })
+        
+        for mes in range(1, self.plazo_meses+1):
+            interes_mensual = saldo_deuda * (self.tasa_interes / 12)
+            amortizacion_mensual = cuota_mensual - interes_mensual
+            saldo_deuda -= amortizacion_mensual
+            tabla_amortizacion.append({
+                "mes": mes,
+                "cuota": cuota_mensual,
+                "interes": interes_mensual,
+                "amortizacion": amortizacion_mensual,
+                "saldo_deuda": saldo_deuda
+            })
+        
+        return tabla_amortizacion
 
-prestamo = AmortizacionFrancesa(100000, 0.05, 10)
-tabla = prestamo.generar_tabla_amortizacion()
-print(tabla)
+amortizacion = AmortizacionFrancesa(100000, 0.025, 10)
+tabla_amortizacion = amortizacion.generar_tabla_amortizacion()
+
+print("{:^10s} | {:^15s} | {:^15s} | {:^15s} | {:^15s}".format("Mes", "Cuota", "Interés", "Amortización", "Saldo de deuda"))
+print("-"*75)
+
+for fila in tabla_amortizacion:
+    print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['interes'], fila['amortizacion'], fila['saldo_deuda']))
