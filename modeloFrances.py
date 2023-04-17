@@ -49,3 +49,4 @@ for fila in tabla_amortizacion:
 
 cuota_sum = sum([x['cuota'] for x in tabla_amortizacion])
 print("\nTotal a pagar: {:,.2f}".format(cuota_sum), "€")
+"HOla"
