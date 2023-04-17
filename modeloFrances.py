@@ -5,9 +5,9 @@ class AmortizacionFrancesa:
         self.plazo_meses = plazo_meses
     
     def calcular_cuota_mensual(self):
-        i = self.tasa_interes / 12
+        i = self.tasa_interes
         n = self.plazo_meses
-        cuota = self.capital_inicial / ((1 - (1/(1+i)**n)) / i)
+        cuota = self.capital_inicial / ((1 - ((1+i)**(-n))) / i)
         return cuota
     
     def generar_tabla_amortizacion(self):
@@ -25,7 +25,7 @@ class AmortizacionFrancesa:
         })
         
         for mes in range(1, self.plazo_meses+1):
-            interes_mensual = saldo_deuda * (self.tasa_interes / 12)
+            interes_mensual = saldo_deuda * (self.tasa_interes)
             amortizacion_mensual = cuota_mensual - interes_mensual
             saldo_deuda -= amortizacion_mensual
             tabla_amortizacion.append({
@@ -41,8 +41,11 @@ class AmortizacionFrancesa:
 amortizacion = AmortizacionFrancesa(100000, 0.025, 10)
 tabla_amortizacion = amortizacion.generar_tabla_amortizacion()
 
-print("{:^10s} | {:^15s} | {:^15s} | {:^15s} | {:^15s}".format("Mes", "Cuota", "Interés", "Amortización", "Saldo de deuda"))
-print("-"*75)
+print("\n{:^10s} | {:^15s} | {:^15s} | {:^15s} | {:^15s}".format("Mes", "Cuota", "Interés", "Amortización", "Saldo de deuda"))
+print("-"*85)
 
 for fila in tabla_amortizacion:
     print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['interes'], fila['amortizacion'], fila['saldo_deuda']))
+
+cuota_sum = sum([x['cuota'] for x in tabla_amortizacion])
+print("\nTotal a pagar: {:,.2f}".format(cuota_sum))

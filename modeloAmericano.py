@@ -71,4 +71,4 @@ print("-"*75)
 for fila in tabla_amortizacion:
     print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['intereses_mes'], fila['capital_mes'], fila['saldo_pendiente']))
 cuota_sum = sum([x['cuota'] for x in tabla_amortizacion])
-print("\nSuma de cuotas: {:,.2f}".format(cuota_sum))
+print("\nTotal a pagar: {:,.2f}".format(cuota_sum),"€")
