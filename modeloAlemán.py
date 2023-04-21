@@ -43,11 +43,11 @@ class aleman:
         for registro in tabla_amortizacion:
             print("{:^10d}{:^20.2f}{:^20.2f}{:^20.2f}{:^20.2f}".format(registro["mes"], registro["saldo_pendiente"], registro["capital_mes"], registro["intereses_mes"], registro["cuota"]))
 
-amortizacion = aleman(4000, 0.0385, 24)
+amortizacion = aleman(100000, 0.025, 10)
 tabla_amortizacion = amortizacion.calcula_amortizacion()
 
 print("\n{:^10s} | {:^15s} | {:^15s} | {:^15s} | {:^15s}".format("Mes", "Cuota", "Interés", "Amortización", "Saldo de deuda"))
-print("-"*75)
+print("-"*85)
 
 for fila in tabla_amortizacion:
     print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['intereses_mes'], fila['capital_mes'], fila['saldo_pendiente']))

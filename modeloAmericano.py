@@ -34,11 +34,11 @@ class americano:
 
 
 
-amortizacion = americano(10000, 0.025, 10)
+amortizacion = americano(100000, 0.025, 10)
 tabla_amortizacion = amortizacion.calcula_amortizacion()
 
-print("{:^10s} | {:^15s} | {:^15s} | {:^15s} | {:^15s}".format("Mes", "Cuota", "Interés", "Amortización", "Saldo de deuda"))
-print("-"*75)
+print("\n{:^10s} | {:^15s} | {:^15s} | {:^15s} | {:^15s}".format("Mes", "Cuota", "Interés", "Amortización", "Saldo de deuda"))
+print("-"*85)
 
 for fila in tabla_amortizacion:
     print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['intereses_mes'], fila['capital_mes'], fila['saldo_pendiente']))
