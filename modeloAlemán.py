@@ -12,10 +12,10 @@ class aleman:
         capital_total = 0
         tabla_amortizacion = []
 
-        amortizacion = self.prestamo / (self.plazo * 12)
+        amortizacion = self.prestamo / (self.plazo)
 
-        for mes in range(1, self.plazo * 12 + 1):
-            cuota_interes = saldo_deudor * (self.tasa / 12)
+        for mes in range(1, self.plazo + 1):
+            cuota_interes = saldo_deudor * (self.tasa)
             interes_total += cuota_interes
 
             capital_amortizado = amortizacion
@@ -43,7 +43,7 @@ class aleman:
         for registro in tabla_amortizacion:
             print("{:^10d}{:^20.2f}{:^20.2f}{:^20.2f}{:^20.2f}".format(registro["mes"], registro["saldo_pendiente"], registro["capital_mes"], registro["intereses_mes"], registro["cuota"]))
 
-amortizacion = aleman(4000, 0.0385, 2)
+amortizacion = aleman(4000, 0.0385, 24)
 tabla_amortizacion = amortizacion.calcula_amortizacion()
 
 print("\n{:^10s} | {:^15s} | {:^15s} | {:^15s} | {:^15s}".format("Mes", "Cuota", "Interés", "Amortización", "Saldo de deuda"))
