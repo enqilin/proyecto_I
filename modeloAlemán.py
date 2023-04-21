@@ -33,7 +33,7 @@ class Modelo_Aleman():
         return lista_cuota
     
     def main(self):
-        lista1, lista2=interes()        #lista1=lista_saldoDeudor #lista2=lista_intereses
+        lista1, lista2=intereses()        #lista1=lista_saldoDeudor #lista2=lista_intereses
         lista3=cuota(lista2)            #lista3=lista_cuota
         for i in range(self.n):
             print ("Saldo Deudor: {} Interes: {} Capital amortizado: {} Cuota: {}\n".format(lista1[i], lista2[i], self.capital_amortizado, lista3[i]))
