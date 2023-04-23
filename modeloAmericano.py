@@ -1,10 +1,10 @@
-class americano:
+class AmortizacionAmericana:
     def __init__(self,prestamo,tasa,plazo):
         self.prestamo = prestamo
         self.plazo = plazo
         self.tasa = tasa
 
-    def calcula_amortizacion(self):
+    def calcula_amortizacion_americana(self):
         amor_pendiente = self.prestamo
         cuota = 0
         tabla_amortizacion =[]
@@ -31,16 +31,3 @@ class americano:
                     "intereses_mes":interes_mensual,
                     "cuota" :cuota})
         return tabla_amortizacion
-
-
-
-amortizacion = americano(100000, 0.025, 10)
-tabla_amortizacion = amortizacion.calcula_amortizacion()
-
-print("\n{:^10s} | {:^15s} | {:^15s} | {:^15s} | {:^15s}".format("Mes", "Cuota", "Interés", "Amortización", "Saldo de deuda"))
-print("-"*85)
-
-for fila in tabla_amortizacion:
-    print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['intereses_mes'], fila['capital_mes'], fila['saldo_pendiente']))
-cuota_sum = sum([x['cuota'] for x in tabla_amortizacion])
-print("\nTotal a pagar: {:,.2f}".format(cuota_sum),"€")
