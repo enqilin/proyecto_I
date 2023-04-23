@@ -50,7 +50,7 @@ def main():
     print("\nTotal de intereses: {:,.2f}".format(interes_sum), "€\n")
 
 if __name__ == "__main__":
-    prestamo = 10000
-    interes = 0.03
-    cuotas = 5
+    prestamo = float(input(colored(Fore.LIGHTMAGENTA_EX + "Introduce el préstamo: ")))
+    interes = float(input(colored(Fore.LIGHTMAGENTA_EX + "Introduce el interés: ")))
+    cuotas = int(input(colored(Fore.LIGHTMAGENTA_EX + "Introduce el número de cuotas: ")))
     main()
