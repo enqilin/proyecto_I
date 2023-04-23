@@ -50,7 +50,7 @@ def main():
     print("\nTotal de intereses: {:,.2f}".format(interes_sum), "€\n")
 
 if __name__ == "__main__":
-    prestamo = 500000 
-    interes = 0.12
-    cuotas = 15
+    prestamo = 10000
+    interes = 0.03
+    cuotas = 5
     main()

@@ -12,6 +12,14 @@ class AmortizacionAlemana:
         capital_total = 0
         tabla_amortizacion = []
 
+        # Agregar diccionario para el mes 0
+        tabla_amortizacion.append({
+                    "mes": 0,
+                    "saldo_pendiente": saldo_deudor,
+                    "capital_mes": 0,
+                    "intereses_mes": 0,
+                    "cuota" :0})
+
         amortizacion = self.prestamo / (self.plazo)
 
         for mes in range(1, self.plazo + 1):
