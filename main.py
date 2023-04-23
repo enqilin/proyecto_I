@@ -35,7 +35,7 @@ def main():
     print("\nTotal de intereses: {:,.2f}".format(intereses_sum),"€")
 
     print(colored(Fore.LIGHTGREEN_EX+"\n \n MODELO AMORTIZACIÓN FRANCÉS"))
-    amortizacion_francesa = AmortizacionFrancesa(100000, 0.025, 10)
+    amortizacion_francesa = AmortizacionFrancesa(prestamo, interes, cuotas)
     tabla_amortizacion = amortizacion_francesa.calcula_amortizacion_francesa()
 
     print("\n{:^10s} | {:^15s} | {:^15s} | {:^15s} | {:^15s}".format("Mes", "Cuota", "Interés", "Amortización", "Saldo de deuda"))
