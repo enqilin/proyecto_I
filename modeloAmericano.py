@@ -20,7 +20,7 @@ class AmortizacionAmericana:
             if mes == self.plazo:
                 capital_mensual = self.prestamo
                 amor_pendiente -= capital_mensual
-                cuota = (self.tasa) * amor_pendiente + self.prestamo
+                cuota = (self.tasa) * capital_mensual + self.prestamo
                 tabla_amortizacion.append({
                     "mes": mes,
                     "saldo_pendiente": amor_pendiente,

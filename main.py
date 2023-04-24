@@ -3,6 +3,7 @@ from modeloAmericano import *
 from modeloFrances import *
 from colorama import *
 from termcolor import colored
+import matplotlib.pyplot as plt
 
 def main():
     print(colored(Fore.LIGHTGREEN_EX + "\nMODELO AMORTIZACIÓN ALEMÁN"))
@@ -16,9 +17,9 @@ def main():
         print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['intereses_mes'], fila['capital_mes'], fila['saldo_pendiente']))
 
     cuota_sum = sum([x['cuota'] for x in tabla_amortizacion])
-    print("\nTotal a pagar: {:,.2f}".format(cuota_sum),"€")
+    print(colored(Fore.LIGHTCYAN_EX + "\nTotal a pagar: {:,.2f}".format(cuota_sum)+" €"))
     intereses_sum = sum([x['intereses_mes'] for x in tabla_amortizacion])
-    print("\nTotal de intereses: {:,.2f}".format(intereses_sum),"€")
+    print(colored(Fore.LIGHTCYAN_EX+"\nTotal de intereses: {:,.2f}".format(intereses_sum)+" €"))
 
     print(colored(Fore.LIGHTGREEN_EX+"\n \n MODELO AMORTIZACIÓN AMERICANO"))
     amortizacion_americana = AmortizacionAmericana(prestamo, interes, cuotas)
@@ -30,9 +31,9 @@ def main():
     for fila in tabla_amortizacion:
         print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['intereses_mes'], fila['capital_mes'], fila['saldo_pendiente']))
     cuota_sum = sum([x['cuota'] for x in tabla_amortizacion])
-    print("\nTotal a pagar: {:,.2f}".format(cuota_sum),"€")
+    print(colored(Fore.LIGHTCYAN_EX + "\nTotal a pagar: {:,.2f}".format(cuota_sum)+" €"))
     intereses_sum = sum([x['intereses_mes'] for x in tabla_amortizacion])
-    print("\nTotal de intereses: {:,.2f}".format(intereses_sum),"€")
+    print(colored(Fore.LIGHTCYAN_EX+"\nTotal de intereses: {:,.2f}".format(intereses_sum)+" €"))
 
     print(colored(Fore.LIGHTGREEN_EX+"\n \n MODELO AMORTIZACIÓN FRANCÉS"))
     amortizacion_francesa = AmortizacionFrancesa(prestamo, interes, cuotas)
@@ -45,9 +46,10 @@ def main():
         print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['interes'], fila['amortizacion'], fila['saldo_deuda']))
 
     cuota_sum = sum([x['cuota'] for x in tabla_amortizacion])
-    print("\nTotal a pagar: {:,.2f}".format(cuota_sum), "€")
+    print(colored(Fore.LIGHTCYAN_EX + "\nTotal a pagar: {:,.2f}".format(cuota_sum)+" €"))
     interes_sum = sum([x['interes'] for x in tabla_amortizacion])
-    print("\nTotal de intereses: {:,.2f}".format(interes_sum), "€\n")
+    print(colored(Fore.LIGHTCYAN_EX+"\nTotal de intereses: {:,.2f}".format(intereses_sum)+" €"))
+
 
 if __name__ == "__main__":
     prestamo = float(input(colored(Fore.LIGHTMAGENTA_EX + "Introduce el préstamo: ")))
