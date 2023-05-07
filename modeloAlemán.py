@@ -1,3 +1,4 @@
+
 class AmortizacionAlemana:
     def __init__(self, prestamo, tasa, plazo):
         self.prestamo = prestamo
@@ -44,3 +45,22 @@ class AmortizacionAlemana:
         tabla_amortizacion[-1]["cuota"] += saldo_deudor
 
         return tabla_amortizacion
+    
+
+
+    def tabla_amortizacion_alemana(prestamo, interes, cuotas):
+        print("\nMODELO AMORTIZACIÓN ALEMÁN")
+        amortizacion_alemana = AmortizacionAlemana(prestamo, interes, cuotas)
+        tabla_amortizacion = amortizacion_alemana.calcula_amortizacion_alemana()
+
+        print("\n{:^10s} | {:^15s} | {:^15s} | {:^15s} | {:^15s}".format("Mes", "Cuota", "Interés", "Amortización", "Saldo de deuda"))
+        print("-"*85)
+
+        for fila in tabla_amortizacion:
+            print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['intereses_mes'], fila['capital_mes'], fila['saldo_pendiente']))
+
+        cuota_sum = sum([x['cuota'] for x in tabla_amortizacion])
+        print("\nTotal a pagar: {:,.2f}".format(cuota_sum),"€")
+        intereses_sum = sum([x['intereses_mes'] for x in tabla_amortizacion])
+        print("\nTotal de intereses: {:,.2f}".format(intereses_sum),"€\n")
+

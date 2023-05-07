@@ -1,3 +1,4 @@
+
 class AmortizacionFrancesa:
     def __init__(self, capital_inicial, tasa_interes, plazo_meses):
         self.capital_inicial = capital_inicial
@@ -37,3 +38,14 @@ class AmortizacionFrancesa:
             })
         
         return tabla_amortizacion
+    
+    def tabla_amortizacion_francesa(self):
+        print("\nMODELO AMORTIZACIÓN FRANCÉS")
+        amortizacion_francesa = AmortizacionFrancesa(self.capital_inicial, self.tasa_interes, self.plazo_meses)
+        tabla_amortizacion = amortizacion_francesa.calcula_amortizacion_francesa()
+        
+        print("\n{:^10s} | {:^15s} | {:^15s} | {:^15s} | {:^15s}".format("Mes", "Cuota", "Interés", "Amortización", "Saldo de deuda"))
+        print("-"*85)
+        
+        for fila in tabla_amortizacion:
+            print("{:^10d} | {:^15.2f} | {:^15.2f} | {:^15.2f} | {:^15.2f}".format(fila["mes"], fila["cuota"], fila["interes"], fila["amortizacion"], fila["saldo_deuda"]))

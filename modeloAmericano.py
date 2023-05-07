@@ -1,3 +1,4 @@
+
 class AmortizacionAmericana:
     def __init__(self,prestamo,tasa,plazo):
         self.prestamo = prestamo
@@ -38,3 +39,16 @@ class AmortizacionAmericana:
                     "cuota": cuota})
             amor_pendiente -= capital_mensual
         return tabla_amortizacion
+
+    def tabla_amortizacion_americana(self):
+        tabla_amortizacion = self.calcula_amortizacion_americana()
+        print("\n MODELO AMORTIZACIÓN AMERICANO")
+        print("\n{:^10s} | {:^15s} | {:^15s} | {:^15s} | {:^15s}".format("Mes", "Cuota", "Interés", "Amortización", "Saldo de deuda"))
+        print("-"*85)
+
+        for fila in tabla_amortizacion:
+            print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['intereses_mes'], fila['capital_mes'], fila['saldo_pendiente']))
+        cuota_sum = sum([x['cuota'] for x in tabla_amortizacion])
+        print("\nTotal a pagar: {:,.2f}".format(cuota_sum),"€")
+        intereses_sum = sum([x['intereses_mes'] for x in tabla_amortizacion])
+        print("\nTotal de intereses: {:,.2f}".format(intereses_sum),"€\n")
