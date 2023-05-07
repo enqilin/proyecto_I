@@ -161,14 +161,14 @@ class VentanaAmortizacion:
         self.combo_tipo_amortizacion.current(0)
         
         btn_calcular = ttk.Button(self.ventana, text="Calcular", command=self.calcular)
-        self.tabla_amortizacion = ttk.Treeview(self.ventana, columns=("mes", "cuota", "intereses", "capital", "saldo"))
+        self.tabla_amortizacion = ttk.Treeview(self.ventana, columns=("mes", "cuota", "intereses", "capital", "saldo"), show="headings", height=24)
         
         self.tabla_amortizacion.heading("mes", text="Mes")
         self.tabla_amortizacion.heading("cuota", text="Cuota")
         self.tabla_amortizacion.heading("intereses", text="Intereses")
         self.tabla_amortizacion.heading("capital", text="Capital")
         self.tabla_amortizacion.heading("saldo", text="Saldo pendiente")
-        
+
         # Ubicar los widgets en la ventana
         lbl_prestamo.grid(row=0, column=0, padx=10, pady=10, sticky="w")
         self.entry_prestamo.grid(row=0, column=1, padx=10, pady=10)
@@ -182,9 +182,9 @@ class VentanaAmortizacion:
         lbl_tipo_amortizacion.grid(row=3, column=0, padx=10, pady=10, sticky="w")
         self.combo_tipo_amortizacion.grid(row=3, column=1, padx=10, pady=10)
         
-        btn_calcular.grid(row=4, column=1, padx=10, pady=10, sticky="e")
+        btn_calcular.grid(row=4, column=2, padx=10, pady=10, sticky="e")
         
-        self.tabla_amortizacion.grid(row=5, column=0, columnspan=2, padx=10, pady=10)
+        self.tabla_amortizacion.grid(row=5, column=1, columnspan=2, padx=10, pady=10)
         
         # Configurar la tabla de amortización
         self.tabla_amortizacion.column("#0", width=0, stretch=tk.NO)
@@ -194,7 +194,17 @@ class VentanaAmortizacion:
         self.tabla_amortizacion.column("capital", anchor=tk.CENTER, width=200)
         self.tabla_amortizacion.column("saldo", anchor=tk.CENTER, width=200)
 
-        # Hacer la tabla más grande
+        # Suma de los totales
+        self.lbl_total_cuota = ttk.Label(self.ventana, text="Total de cuotas:")
+        self.lbl_total_cuota.grid(row=6, column=0, padx=10, pady=10, sticky="w")
+        self.lbl_total_cuota_valor = ttk.Label(self.ventana, text="0.00")
+        self.lbl_total_cuota_valor.grid(row=6, column=1, padx=10, pady=10, sticky="w")
+
+        self.lbl_total_intereses = ttk.Label(self.ventana, text="Total de intereses:")
+        self.lbl_total_intereses.grid(row=7, column=0, padx=10, pady=10, sticky="w")
+        self.lbl_total_intereses_valor = ttk.Label(self.ventana, text="0.00")
+        self.lbl_total_intereses_valor.grid(row=7, column=1, padx=10, pady=10, sticky="w")
+
 
         # Mostrar la ventana
         self.ventana.mainloop()
