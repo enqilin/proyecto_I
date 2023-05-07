@@ -6,6 +6,8 @@ class AmortizacionAlemana:
         self.prestamo = prestamo
         self.tasa = tasa
         self.plazo = plazo
+        self.total_cuotas = 0
+        self.total_intereses = 0
 
     def calcula_amortizacion_alemana(self):
         saldo_deudor = self.prestamo
@@ -33,6 +35,8 @@ class AmortizacionAlemana:
             cuota = cuota_interes + capital_amortizado
             cuota_total += cuota
             capital_total += capital_amortizado
+            self.total_cuotas = cuota_total
+            self.total_intereses = interes_total
 
             saldo_deudor -= capital_amortizado
             tabla_amortizacion.append({
@@ -194,18 +198,6 @@ class VentanaAmortizacion:
         self.tabla_amortizacion.column("capital", anchor=tk.CENTER, width=200)
         self.tabla_amortizacion.column("saldo", anchor=tk.CENTER, width=200)
 
-        # Suma de los totales
-        self.lbl_total_cuota = ttk.Label(self.ventana, text="Total de cuotas:")
-        self.lbl_total_cuota.grid(row=6, column=0, padx=10, pady=10, sticky="w")
-        self.lbl_total_cuota_valor = ttk.Label(self.ventana, text="0.00")
-        self.lbl_total_cuota_valor.grid(row=6, column=1, padx=10, pady=10, sticky="w")
-
-        self.lbl_total_intereses = ttk.Label(self.ventana, text="Total de intereses:")
-        self.lbl_total_intereses.grid(row=7, column=0, padx=10, pady=10, sticky="w")
-        self.lbl_total_intereses_valor = ttk.Label(self.ventana, text="0.00")
-        self.lbl_total_intereses_valor.grid(row=7, column=1, padx=10, pady=10, sticky="w")
-
-
         # Mostrar la ventana
         self.ventana.mainloop()
 
@@ -243,6 +235,29 @@ class VentanaAmortizacion:
                 registro["capital_mes"],
                 registro["saldo_pendiente"]
             ))
+            
+
+        # Suma de las columnan de las cuotas y de los intereses
+        suma_cuotas = 0
+        suma_intereses = 0
+        for registro in tabla_amortizacion:
+            suma_cuotas += registro["cuota"]
+            suma_intereses += registro["intereses_mes"]
+
+        # Insertar el total de las cuotas y de los intereses
+        self.tabla_amortizacion.insert("", tk.END, text="", values=(
+            "Total",
+            suma_cuotas,
+            suma_intereses,
+            "",
+            ""
+
+        ))
+
+        # resaltar el total de las cuotas y de los intereses
+        self.tabla_amortizacion.item(self.tabla_amortizacion.get_children()[-1], tags=("total",))
+        self.tabla_amortizacion.tag_configure("total", background="#BBDEFB")
+        
 
 if __name__ == "__main__":
     ventana = VentanaAmortizacion()
