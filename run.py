@@ -14,7 +14,7 @@ class AmortizacionAlemana:
         cuota_total = 0
         capital_total = 0
         tabla_amortizacion = []
-
+        
         # Agregar diccionario para el mes 0
         tabla_amortizacion.append({
                     "mes": 0,
