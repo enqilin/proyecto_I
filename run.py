@@ -36,15 +36,16 @@ class AmortizacionAlemana:
 
             saldo_deudor -= capital_amortizado
             tabla_amortizacion.append({
-                "mes": mes,
-                "saldo_pendiente": saldo_deudor,
-                "capital_mes": capital_amortizado,
-                "intereses_mes": cuota_interes,
-                "cuota": cuota
-            })
+            "mes": mes,
+            "saldo_pendiente": round(saldo_deudor, 2),
+            "capital_mes": round(capital_amortizado, 2),
+            "intereses_mes": round(cuota_interes, 2),
+            "cuota": round(cuota, 2)
+        })
 
-        tabla_amortizacion[-1]["capital_mes"] += saldo_deudor
-        tabla_amortizacion[-1]["cuota"] += saldo_deudor
+
+        tabla_amortizacion[-1]["capital_mes"] += round(saldo_deudor,2)
+        tabla_amortizacion[-1]["cuota"] += round(saldo_deudor,2)
 
         return tabla_amortizacion
     
