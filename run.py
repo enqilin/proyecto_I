@@ -75,19 +75,20 @@ class AmortizacionAmericana:
                 cuota = (self.tasa) * capital_mensual + self.prestamo
                 tabla_amortizacion.append({
                     "mes": mes,
-                    "saldo_pendiente": amor_pendiente,
-                    "capital_mes": capital_mensual,
-                    "intereses_mes": interes_mensual,
-                    "cuota": cuota})
+                    "saldo_pendiente": round(amor_pendiente, 2),
+                    "capital_mes": round(capital_mensual, 2),
+                    "intereses_mes": round(interes_mensual, 2),
+                    "cuota": round(cuota, 2)})
+
             else:
                 capital_mensual = 0
                 cuota = (self.tasa) * amor_pendiente
                 tabla_amortizacion.append({
                     "mes": mes,
-                    "saldo_pendiente": amor_pendiente,
-                    "capital_mes": capital_mensual,
-                    "intereses_mes": interes_mensual,
-                    "cuota": cuota})
+                    "saldo_pendiente": round(amor_pendiente, 2),
+                    "capital_mes": round(capital_mensual, 2),
+                    "intereses_mes": round(interes_mensual, 2),
+                    "cuota": round(cuota, 2)})
 
         return tabla_amortizacion
 
@@ -127,10 +128,10 @@ class AmortizacionFrancesa:
             saldo_deudor -= capital_amortizado
             tabla_amortizacion.append({
                 "mes": mes,
-                "saldo_pendiente": saldo_deudor,
-                "capital_mes": capital_amortizado,
-                "intereses_mes": cuota_interes,
-                "cuota": cuota
+                "saldo_pendiente": round(saldo_deudor, 2),
+                "capital_mes": round(capital_amortizado, 2),
+                "intereses_mes": round(cuota_interes, 2),
+                "cuota": round(cuota, 2)    
             })
 
         tabla_amortizacion[-1]["capital_mes"] += saldo_deudor
@@ -155,7 +156,7 @@ class VentanaAmortizacion:
         lbl_plazo = ttk.Label(self.ventana, text="Plazo en meses:")
         self.entry_plazo = ttk.Entry(self.ventana)
         
-        lbl_tipo_amortizacion = ttk.Label(self.ventana, text="Tipo de amortización:")
+        lbl_tipo_amortizacion = ttk.Label(self.ventana, text="Tipo de modelo de amortización:")
         self.combo_tipo_amortizacion = ttk.Combobox(self.ventana, values=["Alemán", "Americano", "Francés"])
         self.combo_tipo_amortizacion.current(0)
         
