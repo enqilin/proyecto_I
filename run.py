@@ -134,8 +134,8 @@ class AmortizacionFrancesa:
                 "cuota": round(cuota, 2)    
             })
 
-        tabla_amortizacion[-1]["capital_mes"] += saldo_deudor
-        tabla_amortizacion[-1]["cuota"] += saldo_deudor
+        tabla_amortizacion[-1]["capital_mes"] += round(saldo_deudor, 2)
+        tabla_amortizacion[-1]["cuota"] += round(saldo_deudor, 2)
 
         return tabla_amortizacion
 
