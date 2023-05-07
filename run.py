@@ -247,12 +247,10 @@ class VentanaAmortizacion:
         # Insertar el total de las cuotas y de los intereses
         self.tabla_amortizacion.insert("", tk.END, text="", values=(
             "Total",
-            suma_cuotas,
-            suma_intereses,
+            round(suma_cuotas,2),
+            round(suma_intereses,2),
             "",
-            ""
-
-        ))
+            "" ))
 
         # resaltar el total de las cuotas y de los intereses
         self.tabla_amortizacion.item(self.tabla_amortizacion.get_children()[-1], tags=("total",))
