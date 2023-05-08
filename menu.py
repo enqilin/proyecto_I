@@ -1,6 +1,6 @@
-from modeloAlemán import *
-from modeloAmericano import *
-from modeloFrances import *
+from modelo_aleman import *
+from modelo_americano import *
+from modelo_frances import *
 from colorama import *
 from termcolor import colored
 
@@ -42,11 +42,11 @@ def main():
     print("-"*85)
 
     for fila in tabla_amortizacion:
-        print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['interes'], fila['amortizacion'], fila['saldo_deuda']))
+        print("{:^10d} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f} | {:>15,.2f}".format(fila['mes'], fila['cuota'], fila['intereses_mes'], fila['capital_mes'], fila['saldo_pendiente']))
 
     cuota_sum = sum([x['cuota'] for x in tabla_amortizacion])
     print("\nTotal a pagar: {:,.2f}".format(cuota_sum), "€")
-    interes_sum = sum([x['interes'] for x in tabla_amortizacion])
+    interes_sum = sum([x['intereses_mes'] for x in tabla_amortizacion])
     print("\nTotal de intereses: {:,.2f}".format(interes_sum), "€\n")
 
 if __name__ == "__main__":
