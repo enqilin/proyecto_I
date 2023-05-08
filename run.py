@@ -1,5 +1,6 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, filedialog, plt
+
 
 class AmortizacionAlemana:
     def __init__(self, prestamo, tasa, plazo):
@@ -150,6 +151,7 @@ class VentanaAmortizacion:
         self.ventana.title("Calculadora de Amortización")
         self.ventana.geometry("1200x800")
         
+        
         # Crear los widgets
         lbl_prestamo = ttk.Label(self.ventana, text="Monto del préstamo:")
         self.entry_prestamo = ttk.Entry(self.ventana)
@@ -172,6 +174,7 @@ class VentanaAmortizacion:
         self.tabla_amortizacion.heading("intereses", text="Intereses")
         self.tabla_amortizacion.heading("capital", text="Capital")
         self.tabla_amortizacion.heading("saldo", text="Saldo pendiente")
+        
 
         # Ubicar los widgets en la ventana
         lbl_prestamo.grid(row=0, column=0, padx=10, pady=10, sticky="w")
@@ -256,6 +259,23 @@ class VentanaAmortizacion:
         self.tabla_amortizacion.item(self.tabla_amortizacion.get_children()[-1], tags=("total",))
         self.tabla_amortizacion.tag_configure("total", background="#BBDEFB")
         
+        # Mostrar el total de las cuotas y de los intereses
+        lbl_total_cuotas = ttk.Label(self.ventana, text="Total de las cuotas:")
+        lbl_total_cuotas.grid(row=6, column=0, padx=10, pady=10, sticky="w")
+        lbl_total_cuotas_valor = ttk.Label(self.ventana, text=round(suma_cuotas,2))
+        lbl_total_cuotas_valor.grid(row=6, column=1, padx=10, pady=10, sticky="w")
+
+        lbl_total_intereses = ttk.Label(self.ventana, text="Total de los intereses:")
+        lbl_total_intereses.grid(row=7, column=0, padx=10, pady=10, sticky="w")
+        lbl_total_intereses_valor = ttk.Label(self.ventana, text=round(suma_intereses,2))
+        lbl_total_intereses_valor.grid(row=7, column=1, padx=10, pady=10, sticky="w")
+
+        lbl_total_pagado = ttk.Label(self.ventana, text="Total pagado:")
+        lbl_total_pagado.grid(row=8, column=0, padx=10, pady=10, sticky="w")
+        lbl_total_pagado_valor = ttk.Label(self.ventana, text=round(suma_cuotas + suma_intereses,2))
+        lbl_total_pagado_valor.grid(row=8, column=1, padx=10, pady=10, sticky="w")
+
+    
 
 if __name__ == "__main__":
     ventana = VentanaAmortizacion()
