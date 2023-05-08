@@ -1,6 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, filedialog
-
+from tkinter import ttk
 
 class AmortizacionAlemana:
     def __init__(self, prestamo, tasa, plazo):
@@ -97,6 +96,8 @@ class AmortizacionAmericana:
 
         return tabla_amortizacion
 
+
+    
 class AmortizacionFrancesa:
     def __init__(self, prestamo, tasa, plazo):
         self.prestamo = prestamo
@@ -106,9 +107,6 @@ class AmortizacionFrancesa:
     def calcula_amortizacion_francesa(self):
         saldo_deudor = self.prestamo
         cuota = 0
-        interes_total = 0
-        cuota_total = 0
-        capital_total = 0
         tabla_amortizacion = []
 
         # Agregar diccionario para el mes 0
@@ -120,27 +118,21 @@ class AmortizacionFrancesa:
             "cuota": 0
         })
 
-        cuota = (self.prestamo * (self.tasa/12) * ((1 + (self.tasa/12)) ** self.plazo)) / (((1 + (self.tasa/12)) ** self.plazo) - 1)
-        cuota_total = cuota * self.plazo
+        cuota = self.prestamo / ((1 - ((1 + self.tasa) ** (-self.plazo))) / self.tasa)
+        
 
         for mes in range(1, self.plazo + 1):
-            cuota_interes = saldo_deudor * (self.tasa/12)
-            interes_total += cuota_interes
-
-            capital_amortizado = cuota - cuota_interes
-            capital_total += capital_amortizado
-
-            saldo_deudor -= capital_amortizado
+            interes_mensual = saldo_deudor * (self.tasa)
+            amortizacion_mensual = cuota - interes_mensual
+            saldo_deudor -= amortizacion_mensual
             tabla_amortizacion.append({
                 "mes": mes,
                 "saldo_pendiente": round(saldo_deudor, 2),
-                "capital_mes": round(capital_amortizado, 2),
-                "intereses_mes": round(cuota_interes, 2),
-                "cuota": round(cuota, 2)    
-            })
+                "capital_mes": round(amortizacion_mensual, 2),
+                "intereses_mes": round(interes_mensual, 2),
+                "cuota": round(cuota, 2)
+                  })
 
-        tabla_amortizacion[-1]["capital_mes"] += round(saldo_deudor, 2)
-        tabla_amortizacion[-1]["cuota"] += round(saldo_deudor, 2)
 
         return tabla_amortizacion
 
@@ -150,7 +142,6 @@ class VentanaAmortizacion:
         self.ventana = tk.Tk()
         self.ventana.title("Calculadora de Amortización")
         self.ventana.geometry("1200x800")
-        
         
         # Crear los widgets
         lbl_prestamo = ttk.Label(self.ventana, text="Monto del préstamo:")
@@ -174,7 +165,6 @@ class VentanaAmortizacion:
         self.tabla_amortizacion.heading("intereses", text="Intereses")
         self.tabla_amortizacion.heading("capital", text="Capital")
         self.tabla_amortizacion.heading("saldo", text="Saldo pendiente")
-        
 
         # Ubicar los widgets en la ventana
         lbl_prestamo.grid(row=0, column=0, padx=10, pady=10, sticky="w")
@@ -275,7 +265,7 @@ class VentanaAmortizacion:
         lbl_total_pagado_valor = ttk.Label(self.ventana, text=round(suma_cuotas + suma_intereses,2))
         lbl_total_pagado_valor.grid(row=8, column=1, padx=10, pady=10, sticky="w")
 
-    
+
 
 if __name__ == "__main__":
     ventana = VentanaAmortizacion()
