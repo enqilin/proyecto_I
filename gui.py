@@ -6,6 +6,7 @@ from modelo_americano import *
 from modelo_frances import *
 
 
+
 class VentanaAmortizacion:
     
     def __init__(self):
@@ -137,35 +138,43 @@ class VentanaAmortizacion:
         # Guardar la tabla de amortización en un archivo csv en un botón
         btn_guardar_csv = ttk.Button(self.ventana, text="Guardar tabla", command=lambda: self.guardar_tabla_amortizacion(tabla_amortizacion))
         btn_guardar_csv.grid(row=2, column=2, padx=10, pady=10, sticky="e")
+
+        # Crear botón para guardar la tabla como png
+        btn_guardar_png = ttk.Button(self.ventana, text="Guardar tabla como png", command=self.guardar_tabla_amortizacion_png)
+        btn_guardar_png.grid(row=1, column=2, padx=10, pady=10, sticky="e")
         
+
+
     def guardar_tabla_amortizacion(self, tabla_amortizacion):
         # Guardar el archivo
         nombre_archivo = filedialog.asksaveasfilename(
             initialdir="data",
-            filetypes=(("Archivo CSV", "*.csv"),),
+            filetypes=(("Archivo CSV", "*.csv"), ("Archivo PDF", "*.pdf")),
             title="Guardar la tabla de amortización como"
         )
 
-        # Crear el archivo
-        archivo = open(nombre_archivo, "w", newline="")
-        # Crear el objeto para escribir en el archivo
-        escritor = csv.writer(archivo, delimiter=",")
-        # Escribir los registros en el archivo
-        escritor.writerow(("mes", "cuota", "intereses", "capital", "saldo"))
-        for registro in tabla_amortizacion:
-            escritor.writerow((
-                registro["mes"],
-                registro["cuota"],
-                registro["intereses_mes"],
-                registro["capital_mes"],
-                registro["saldo_pendiente"]
-            ))
-        # Cerrar el archivo
-        archivo.close()
+        # Obtener la extensión del archivo
+        extension = nombre_archivo.split(".")[-1]
 
-        # Mostrar un mensaje de éxito
-        messagebox.showinfo("Tabla guardada", "La tabla de amortización se ha guardado con éxito.")
+        if extension == "csv":
+            # Crear el archivo CSV
+            archivo = open(nombre_archivo, "w", newline="")
+            escritor = csv.writer(archivo, delimiter=",")
+            escritor.writerow(("mes", "cuota", "intereses", "capital", "saldo"))
+            for registro in tabla_amortizacion:
+                escritor.writerow((
+                    registro["mes"],
+                    registro["cuota"],
+                    registro["intereses_mes"],
+                    registro["capital_mes"],
+                    registro["saldo_pendiente"]
+                ))
+            archivo.close()
+            messagebox.showinfo("Tabla guardada", "La tabla de amortización se ha guardado como archivo CSV.")
         
+        else:
+            messagebox.showwarning("Extensión incorrecta")
+
 
 if __name__ == "__main__":
     ventana = VentanaAmortizacion() 
