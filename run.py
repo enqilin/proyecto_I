@@ -1,5 +1,8 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, filedialog
+import csv
+
+
 
 class AmortizacionAlemana:
     def __init__(self, prestamo, tasa, plazo):
@@ -180,6 +183,10 @@ class VentanaAmortizacion:
         self.combo_tipo_amortizacion.grid(row=3, column=1, padx=10, pady=10)
         
         btn_calcular.grid(row=4, column=2, padx=10, pady=10, sticky="e")
+        # Crear un boton de guardar tabla en csv
+
+        btn_guardar = ttk.Button(self.ventana, text="Guardar tabla", command=lambda: self.guardar_tabla(self.tabla_amortizacion))
+        btn_guardar.grid(row=2, column=2, padx=10, pady=10, sticky="e")
         
         self.tabla_amortizacion.grid(row=5, column=1, columnspan=2, padx=10, pady=10)
         
@@ -265,6 +272,30 @@ class VentanaAmortizacion:
         lbl_total_pagado_valor = ttk.Label(self.ventana, text=round(suma_cuotas + suma_intereses,2))
         lbl_total_pagado_valor.grid(row=8, column=1, padx=10, pady=10, sticky="w")
 
+        
+
+
+    def guardar_tabla(self, tabla_amortizacion):
+        # Crear un archivo csv
+        nombre_archivo = filedialog.asksaveasfilename(title="Guardar tabla", defaultextension=".csv", filetypes=(("Archivo CSV", "*.csv"),))
+        archivo_csv = open(nombre_archivo, "w", newline="")
+        salida_csv = csv.writer(archivo_csv, delimiter=";")
+        
+        # Escribir la cabecera
+        salida_csv.writerow(("mes", "cuota", "intereses", "capital", "saldo"))
+        
+        # Escribir los registros
+        for registro in tabla_amortizacion:
+            salida_csv.writerow((
+                registro["mes"],
+                registro["cuota"],
+                registro["intereses_mes"],
+                registro["capital_mes"],
+                registro["saldo_pendiente"]
+            ))
+        
+        # Cerrar el archivo
+        archivo_csv.close()
 
 
 if __name__ == "__main__":

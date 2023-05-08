@@ -28,4 +28,9 @@ self.guardar_tabla_amortizacion(tabla_amortizacion)
         # Cerrar el archivo
         2archivo.close()
 
+          # Mostrar el botón de guardar tabla
+        btn_guardar_tabla = ttk.Button(self.ventana, text="Guardar tabla", command=lambda: self.guardar_tabla(tabla_amortizacion))
+        btn_guardar_tabla.grid(row=5, column=1, padx=10, pady=10, sticky="e")
+
+
 """""
