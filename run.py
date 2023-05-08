@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, filedialog, plt
+from tkinter import ttk, filedialog
 
 
 class AmortizacionAlemana:
