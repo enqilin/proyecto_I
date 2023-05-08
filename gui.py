@@ -134,6 +134,38 @@ class VentanaAmortizacion:
         lbl_total_pagado_valor = ttk.Label(self.ventana, text=round(suma_cuotas + suma_intereses,2))
         lbl_total_pagado_valor.grid(row=8, column=1, padx=10, pady=10, sticky="w")
 
+        # Guardar la tabla de amortización en un archivo csv en un botón
+        btn_guardar_csv = ttk.Button(self.ventana, text="Guardar tabla", command=lambda: self.guardar_tabla_amortizacion(tabla_amortizacion))
+        btn_guardar_csv.grid(row=2, column=2, padx=10, pady=10, sticky="e")
+        
+    def guardar_tabla_amortizacion(self, tabla_amortizacion):
+        # Guardar el archivo
+        nombre_archivo = filedialog.asksaveasfilename(
+            initialdir="data",
+            filetypes=(("Archivo CSV", "*.csv"),),
+            title="Guardar la tabla de amortización como"
+        )
+
+        # Crear el archivo
+        archivo = open(nombre_archivo, "w", newline="")
+        # Crear el objeto para escribir en el archivo
+        escritor = csv.writer(archivo, delimiter=",")
+        # Escribir los registros en el archivo
+        escritor.writerow(("mes", "cuota", "intereses", "capital", "saldo"))
+        for registro in tabla_amortizacion:
+            escritor.writerow((
+                registro["mes"],
+                registro["cuota"],
+                registro["intereses_mes"],
+                registro["capital_mes"],
+                registro["saldo_pendiente"]
+            ))
+        # Cerrar el archivo
+        archivo.close()
+
+        # Mostrar un mensaje de éxito
+        messagebox.showinfo("Tabla guardada", "La tabla de amortización se ha guardado con éxito.")
+        
 
 if __name__ == "__main__":
     ventana = VentanaAmortizacion() 
