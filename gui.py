@@ -127,7 +127,7 @@ class VentanaAmortizacion:
 
         # Guardar la tabla de amortización en un archivo csv en un botón
         btn_guardar_csv = ttk.Button(self.ventana, text="Guardar tabla", command=lambda: self.guardar_tabla_amortizacion(tabla_amortizacion))
-        btn_guardar_csv.grid(row=2, column=2, padx=10, pady=10, sticky="e")
+        btn_guardar_csv.grid(row=6, column=2, padx=10, pady=10, sticky="e")
         
         lbl_total_cuotas = ttk.Label(self.ventana, text="Total de las cuotas: ")
         lbl_total_cuotas.grid(row=6, column=0, padx=10, pady=10, sticky="w")
@@ -155,8 +155,9 @@ class VentanaAmortizacion:
             lbl_total_cuotas_valor.config(text="")
             lbl_total_intereses_valor.config(text="")
             lbl_total_pagado_valor.config(text="")
+            self.tabla_amortizacion.delete(*self.tabla_amortizacion.get_children())
         btn_limpiar = ttk.Button(self.ventana, text="Limpiar", command=limpiar)
-        btn_limpiar.grid(row=6, column=2, padx=10, pady=10, sticky="e")
+        btn_limpiar.grid(row=3, column=2, padx=10, pady=10, sticky="e")
 
 
 
