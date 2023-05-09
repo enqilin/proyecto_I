@@ -35,6 +35,14 @@ class VentanaAmortizacion:
         btn_calcular = ttk.Button(self.ventana, text="Calcular", command=self.calcular)
         self.tabla_amortizacion = ttk.Treeview(self.ventana, columns=("mes", "cuota", "intereses", "capital", "saldo"), show="headings", height=21)
         
+        lbl_total_intereses = ttk.Label(self.ventana, text="Total de los intereses: ")
+                
+        lbl_total_pagado = ttk.Label(self.ventana, text="Total a pagar: ")
+
+        btn_limpiar = ttk.Button(self.ventana, text="Limpiar")
+
+        btn_guardar = ttk.Button(self.ventana, text="Guardar tabla")
+
         self.tabla_amortizacion.heading("mes", text="Mes")
         self.tabla_amortizacion.heading("cuota", text="Cuota")
         self.tabla_amortizacion.heading("intereses", text="Intereses")
@@ -59,6 +67,14 @@ class VentanaAmortizacion:
 
         lbl_euros.grid(row=0, column=1, padx=180, pady=10, sticky="e")
         lbl_porcentaje.grid(row=1, column=1, padx=180, pady=10, sticky="e")
+
+        lbl_total_intereses.grid(row=7, column=0, padx=10, pady=10, sticky="w")
+
+        lbl_total_pagado.grid(row=8, column=0, padx=10, pady=10, sticky="w")
+
+        btn_limpiar.grid(row=3, column=2, padx=10, pady=10, sticky="e")
+
+        btn_guardar.grid(row=6, column=2, padx=10, pady=10, sticky="e")
         
         # Configurar la tabla de amortización
         self.tabla_amortizacion.column("#0", width=0, stretch=tk.NO)
@@ -129,30 +145,20 @@ class VentanaAmortizacion:
         btn_guardar_csv = ttk.Button(self.ventana, text="Guardar tabla", command=lambda: self.guardar_tabla_amortizacion(tabla_amortizacion))
         btn_guardar_csv.grid(row=6, column=2, padx=10, pady=10, sticky="e")
         
-        lbl_total_cuotas = ttk.Label(self.ventana, text="Total de las cuotas: ")
-        lbl_total_cuotas.grid(row=6, column=0, padx=10, pady=10, sticky="w")
-        lbl_total_cuotas_valor = ttk.Label(self.ventana, text=round(suma_cuotas ))
-        lbl_total_cuotas_valor.grid(row=6, column=1, padx=10, pady=10, sticky="w")
-        lbl_euros_totales = ttk.Label(self.ventana, text="€")
-        lbl_euros_totales.grid(row=6, column=1, padx=120, pady=10, sticky="w")
-
-        lbl_total_intereses = ttk.Label(self.ventana, text="Total de los intereses: ")
-        lbl_total_intereses.grid(row=7, column=0, padx=10, pady=10, sticky="w")
+        
         lbl_total_intereses_valor = ttk.Label(self.ventana, text=round(suma_intereses))
         lbl_total_intereses_valor.grid(row=7, column=1, padx=10, pady=10, sticky="w")
         lbl_euros_totales = ttk.Label(self.ventana, text="€")
         lbl_euros_totales.grid(row=7, column=1, padx=120, pady=10, sticky="w")
 
-        lbl_total_pagado = ttk.Label(self.ventana, text="Total pagado: ")
-        lbl_total_pagado.grid(row=8, column=0, padx=10, pady=10, sticky="w")
-        lbl_total_pagado_valor = ttk.Label(self.ventana, text=round(suma_cuotas + suma_intereses))
+        
+        lbl_total_pagado_valor = ttk.Label(self.ventana, text=round(suma_cuotas))
         lbl_total_pagado_valor.grid(row=8, column=1, padx=10, pady=10, sticky="w")
         lbl_euros_totales = ttk.Label(self.ventana, text="€")
         lbl_euros_totales.grid(row=8, column=1, padx=120, pady=10, sticky="w")
 
         
         def limpiar():
-            lbl_total_cuotas_valor.config(text="")
             lbl_total_intereses_valor.config(text="")
             lbl_total_pagado_valor.config(text="")
             self.tabla_amortizacion.delete(*self.tabla_amortizacion.get_children())
