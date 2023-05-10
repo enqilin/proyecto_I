@@ -1,0 +1,34 @@
+---
+title: "Estudio de los modelos de amortización de préstamos"
+author: "David Ruiz"
+date: "10/05/2023"
+---
+
+# Introducción
+Comparamos los distinto modelos de amortización de préstamos.
+
+```{r}
+# Cargar paquetes necesarios
+library(tidyverse)
+library(readr)
+
+# Cargar datos
+aleman <- read_csv("data/aleman.csv")
+americano <- read_csv("data/americano.csv")
+frances <- read_csv("data/frances.csv")
+```
+#### Diagrama de barras de los intereses totales
+```{r}
+# Diagrama de barras de los intereses totales
+intereses_totales <- c(aleman$intereses_totales, americano$intereses_totales, frances$intereses_totales)
+tipo <- c(rep("Alemán", length(aleman$intereses_totales)), rep("Americano", length(americano$intereses_totales)), rep("Francés", length(frances$intereses_totales)))
+data <- data.frame(intereses_totales, tipo)
+ggplot(data, aes(x = tipo, y = intereses_totales, fill = tipo)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Intereses totales", x = "Tipo de préstamo", y = "Intereses totales") +
+  theme_minimal()
+```
+
+
+
+
