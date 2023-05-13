@@ -1,0 +1,60 @@
+---
+title: "Estudio de los modelos de amortización"
+---
+
+### Comparamos los distinto modelos de amortización de préstamos.
+
+<!-- salto de linea -->
+<br>
+
+#### Gráfica que muestra la suma de intereses de cada modelo
+
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+# Cargar paquetes necesarios
+library(tidyverse)
+library(readr)
+library(ggplot2)
+```
+  
+```{r, echo=FALSE}
+aleman <- read.csv("data/aleman.csv")
+americano <- read.csv("data/americano.csv")
+frances <- read.csv("data/frances.csv")
+```
+
+```{r, echo=FALSE}
+# Calcular la suma de intereses de cada modelo
+intereses_aleman <- sum(aleman$interes)
+intereses_americano <- sum(americano$interes)
+intereses_frances <- sum(frances$interes)
+```
+
+```{r, echo=FALSE}
+# Crear un dataframe con la suma de intereses de cada modelo
+intereses_suma <- data.frame(modelo = c("Aleman", "Americano", "Frances"),
+                             intereses = c(intereses_aleman, intereses_americano, intereses_frances)) #nolint
+
+# Crear el histograma con diferentes colores para cada barra
+ggplot(intereses_suma, aes(x = modelo, y = intereses, fill = modelo)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("#335ba5", "#bf2ea2", "#1c9e88")) +
+  labs(x = "Modelo de amortización", y = "Intereses totales", title = "Suma de intereses por modelo", fill= "Modelos") + #nolint
+  theme(legend.position = "right", legend.title = element_blank(), plot.title = element_text(hjust = 0.5)) #nolint)
+```
+
+#### Gráfica que muestra la evolución del capital pendiente de cada modelo
+
+```{r, echo=FALSE}
+
+aleman$modelo <- "Aleman"
+americano$modelo <- "Americano"
+frances$modelo <- "Frances"
+datos <- rbind(aleman, americano, frances)
+
+ggplot(datos, aes(x = mes, y = saldo, color = modelo)) +
+  geom_line() +
+  labs(x = "Meses", y = "Saldo", title = "Capital pendiente") +
+  scale_color_manual(values = c("#335ba5", "#bf2ea2", "#1c9e88")) +
+  theme(legend.position = "right", plot.title = element_text(hjust = 0.5)) +
+  scale_x_continuous(breaks = seq(0, 12, 1))
+```
