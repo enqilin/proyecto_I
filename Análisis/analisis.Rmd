@@ -4,7 +4,6 @@ title: "Estudio de los modelos de amortización"
 
 ### Comparamos los distinto modelos de amortización de préstamos.
 
-<!-- salto de linea -->
 <br>
 
 #### Gráfica que muestra la suma de intereses de cada modelo
@@ -42,6 +41,8 @@ ggplot(intereses_suma, aes(x = modelo, y = intereses, fill = modelo)) +
   theme(legend.position = "right", legend.title = element_blank(), plot.title = element_text(hjust = 0.5)) #nolint)
 ```
 
+<br>
+
 #### Gráfica que muestra la evolución del capital pendiente de cada modelo
 
 ```{r, echo=FALSE}
@@ -53,8 +54,24 @@ datos <- rbind(aleman, americano, frances)
 
 ggplot(datos, aes(x = mes, y = saldo, color = modelo)) +
   geom_line() +
+  geom_point() +
   labs(x = "Meses", y = "Saldo", title = "Capital pendiente") +
   scale_color_manual(values = c("#335ba5", "#bf2ea2", "#1c9e88")) +
   theme(legend.position = "right", plot.title = element_text(hjust = 0.5)) +
+  scale_x_continuous(breaks = seq(0, 12, 1))
+```
+
+<br>
+
+#### Gráfica que muestra la evolución de la cuota de cada modelo
+
+```{r, echo=FALSE}
+ggplot(datos, aes(x = mes, y = cuota, color = modelo)) +
+  geom_line() +
+  labs(x = "Meses", y = "Cuota", title = "Evolución de la cuota") + # nolint
+  theme(legend.title = element_text(size = 12)) +
+  scale_color_manual(values = c("#335ba5", "#bf2ea2", "#1c9e88")) +
+  theme(legend.position = "right", plot.title = element_text(hjust = 0.5)) +
+  geom_point() +
   scale_x_continuous(breaks = seq(0, 12, 1))
 ```
