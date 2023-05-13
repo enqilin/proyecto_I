@@ -17,9 +17,9 @@ library(ggplot2)
 ```
   
 ```{r, echo=FALSE}
-aleman <- read.csv("data/aleman.csv")
-americano <- read.csv("data/americano.csv")
-frances <- read.csv("data/frances.csv")
+aleman <- read.csv("/Users/davidruiz/Documents/GitHub/proyecto_I/data/aleman.csv") #nolint
+americano <- read.csv("/Users/davidruiz/Documents/GitHub/proyecto_I/data/americano.csv") #nolint
+frances <- read.csv("/Users/davidruiz/Documents/GitHub/proyecto_I/data/frances.csv") #nolint
 ```
 
 ```{r, echo=FALSE}
